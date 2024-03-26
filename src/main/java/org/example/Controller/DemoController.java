@@ -1,6 +1,6 @@
 package org.example.Controller;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.Controller.Api.DemoApi;
 import org.example.Service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-public class DemoController implements DemoApi{
+public class DemoController implements DemoApi {
     private static final String template = "Hello, %s";
     private final AtomicLong counter = new AtomicLong();
     @Autowired
