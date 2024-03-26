@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.controller.Api.ActorApi;
+import org.example.controller.api.ActorApi;
 import org.example.entity.Actor;
 import org.example.mapper.ActorMapper;
 import org.example.service.ActorService;

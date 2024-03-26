@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.controller.Api.DemoApi;
+import org.example.controller.api.DemoApi;
 import org.example.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
