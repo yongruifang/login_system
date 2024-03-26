@@ -1,4 +1,4 @@
-package org.example.Controller.Api;
+package org.example.controller.Api;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 

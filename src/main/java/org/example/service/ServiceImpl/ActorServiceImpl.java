@@ -1,6 +1,6 @@
-package org.example.Service.ServiceImpl;
+package org.example.service.ServiceImpl;
 
-import org.example.Entity.Actor;
+import org.example.entity.Actor;
 
 import java.util.List;
 

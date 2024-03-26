@@ -1,9 +1,9 @@
-package org.example.Controller;
+package org.example.controller;
 
-import org.example.Controller.Api.ActorApi;
-import org.example.Entity.Actor;
-import org.example.Mapper.ActorMapper;
-import org.example.Service.ActorService;
+import org.example.controller.Api.ActorApi;
+import org.example.entity.Actor;
+import org.example.mapper.ActorMapper;
+import org.example.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

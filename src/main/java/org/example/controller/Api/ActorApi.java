@@ -1,8 +1,8 @@
-package org.example.Controller.Api;
+package org.example.controller.Api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.Entity.Actor;
+import org.example.entity.Actor;
 
 import java.util.List;
 
