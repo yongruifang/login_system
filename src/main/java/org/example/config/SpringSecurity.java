@@ -24,9 +24,25 @@ public class SpringSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf( csrf -> csrf.disable() )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/index/**").permitAll()
+                        .requestMatchers("/register/**").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/index").permitAll()
+                        .requestMatchers("/users").hasRole("ADMIN")
                         .anyRequest().authenticated()
-                );
+                )
+        // 重定向
+                .formLogin(
+                        form -> form
+                                .loginPage("/login")
+                                .loginProcessingUrl("/login")
+                                .defaultSuccessUrl("/users")
+                                .permitAll()
+                ).logout(
+                        logout -> logout
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .permitAll()
+                )
+                ;
         return http.build();
     }
 }
