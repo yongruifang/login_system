@@ -1,4 +1,4 @@
-package org.example.service.ServiceImpl;
+package org.example.service.serviceImpl;
 
 import org.example.entity.Actor;
 

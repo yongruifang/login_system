@@ -2,7 +2,7 @@ package org.example.service;
 
 import org.example.entity.Actor;
 import org.example.mapper.ActorMapper;
-import org.example.service.ServiceImpl.ActorServiceImpl;
+import org.example.service.serviceImpl.ActorServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
