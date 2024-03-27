@@ -1,5 +1,6 @@
 package org.example.security;
 
+import lombok.AllArgsConstructor;
 import org.example.entity.Role;
 import org.example.entity.User;
 import org.example.repository.UserRepository;
@@ -14,19 +15,13 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
-
-    public CustomUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
-        System.out.println("*****************");
-        System.out.println(user.getEmail() + user.getName());
-        System.out.println("*****************");
         if (user != null ) {
             return new org.springframework.security.core.userdetails.User(user.getEmail(),
                     user.getPassword(),
