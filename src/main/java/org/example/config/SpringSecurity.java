@@ -36,7 +36,7 @@ public class SpringSecurity {
                 .cors(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/swagger-ui", "/swagger-ui/**","/v3/api-docs/**", "/swagger-resources/configuration/ui", "/swagger-resources", "/swagger-resources/configuration/security",  "/webjars/**" ).permitAll();
+                    authorize.requestMatchers("/swagger-ui.html", "/swagger-ui/**","/v3/api-docs/**", "/swagger-resources/configuration/ui", "/swagger-resources", "/swagger-resources/configuration/security",  "/webjars/**" ).permitAll();
                     authorize.requestMatchers("/api/auth/**").permitAll();
                     authorize.anyRequest().authenticated();
                 })
