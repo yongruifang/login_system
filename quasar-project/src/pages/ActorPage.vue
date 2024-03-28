@@ -20,6 +20,7 @@
       title="Actors"
       :rows="actorStore.getActors"
       :columns="columns"
+      :filter="filter"
       row-key="id"
       virtual-scroll
    >
@@ -42,8 +43,17 @@
             </q-card-section>
           </q-card>
           </q-dialog>
+          <div class="col-6">
+          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+          </div>
+       
         </div>
     </template>
+    
     <!-- troubleShoot: @save @delete not emit -->
       <template v-slot:body="props">
           <q-tr :props="props">
@@ -88,6 +98,7 @@ import { onMounted , ref } from 'vue';
 
 const show_dialog = ref(false)
 const label = ref("click me")
+const filter = ref("")
 const onSave = (param) => {
   console.log('cheer!!! toggleonSave')
   console.log(param)
