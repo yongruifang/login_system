@@ -5,7 +5,7 @@ export const useActorStore = defineStore('actor', {
         actors: {},
     }),
     getters: {
-        getActors: (state) => state.actors,
+        getActors: (state) => Array.prototype.slice.call(state.actors),
         getTenthActor: (state) => state.actors[9],
         getTenActors: (state) => Array.prototype.slice.call(state.actors, 10, 15)
     },
