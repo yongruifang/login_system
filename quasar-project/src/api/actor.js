@@ -37,3 +37,23 @@ export const fetchActorApi = async()=>{
     const response = await instance.get("/actor")
     return response
 }
+
+export const editActorApi = async(actor={
+    id: "",
+    first_name: "",
+    last_name: "",
+})=>{
+    const response = await instance.put("/actor", actor)
+    return response
+}
+export const deleteActorApi = async(actorId=0) => {
+    const response = await instance.delete("/actor", actorId) 
+    return response
+}
+export const addActorApi = async(actor={
+    first_name: "",
+    last_name: "",
+}) => {
+    const response = await instance.post("/actor", actor)
+    return response
+}

@@ -5,8 +5,7 @@ import org.example.entity.Actor;
 import org.example.mapper.ActorMapper;
 import org.example.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,5 +27,17 @@ public class ActorController implements ActorApi {
             actors.add(actor);
         }
         return actors;
+    }
+    @PostMapping("/actor")
+    public String add() {
+        return "add";
+    }
+    @PutMapping ("/actor")
+    public String update() {
+        return "add";
+    }
+    @DeleteMapping("/actor")
+    public String delete() {
+        return "add";
     }
 }

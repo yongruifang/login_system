@@ -92,7 +92,8 @@
 </template>
 
 <script setup>
-import { fetchActorApi } from 'src/api/actor';
+import { addActorApi } from 'src/api/actor';
+import { fetchActorApi , editActorApi, deleteActorApi } from 'src/api/actor';
 import { useActorStore } from 'src/stores/actor-store'
 import { onMounted , ref } from 'vue';
 
@@ -113,14 +114,32 @@ const updateFirstName = (val, initialValue, row) => {
 const updateLastName = (val, initialValue, row) => {
   console.log("cheer!!!Toggle it")
 }
-const toggleAdd = () =>{
+const toggleAdd = async () =>{
   console.log('@TODO: toggleAdd')
+  const actor = {
+    first_name: newActor.value.first_name,
+    last_name: newActor.value.last_name
+  }
+  console.log(actor)
+  const response = await addActorApi(actor)
+  console.log(response)
 }
 const toggleEdit = () => {
-  console.log('@TODO: toggleEdit')
+  console.log('@TODO: toggleEdit, 先做弹窗')
 }
-const toggleDelete = () => {
-  console.log('@TODO: toggleDelete')
+const toggleEditSave = async (actor = {
+  id: 0,
+  first_name: "",
+  last_name: ""
+}) => {
+  console.log('@TODO: 发送API')
+  const response = await editActorApi(actor)
+  console.log(response)
+}
+const toggleDelete = async () => {
+  console.log('@TODO: toggleDelete, 一个弹窗提示')
+  const response = await deleteActorApi(0) 
+  console.log(response)
 }
 
 const columns = [
