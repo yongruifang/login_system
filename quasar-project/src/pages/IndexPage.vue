@@ -17,8 +17,13 @@
           </q-card-section>
           <q-card-section class="text-center q-pt-none">
             <div class="text-grey-8">Don't have an account yet?
-              <a href="#" class="text-dark text-weight-bold" style="text-decoration: none">Sign
-                up.</a></div>
+              <!-- <a href="#" @click="registerHandle" class="text-dark text-weight-bold" style="text-decoration: none">Sign
+                up.</a> -->
+              <router-link to="/register"  class="text-dark text-weight-bold" style="text-decoration: none">
+                Sign up.
+              </router-link>
+              
+            </div>
           </q-card-section>
         </q-card>
       </q-page>
@@ -30,7 +35,12 @@
 import {ref} from 'vue'
 import {loginApi} from 'src/api/auth'
 import { useTokenStore } from 'src/stores/token-store'
+import { useQuasar  } from 'quasar';
+import { useRouter } from 'vue-router';
 
+
+const router = useRouter()
+const $q = useQuasar()
 const tokenStore = useTokenStore()
 const email = ref("")
 const password = ref("")
@@ -43,13 +53,20 @@ const login = async () => {
       password: password.value
     });
     console.log(response)
-    // 保存 Token 
     const accessToken = response.data.accessToken 
-    // 保存到 Pinia中 ，还是在LocalStorage中呢？
     tokenStore.setToken(accessToken)
+    const { message } = response.data
+    $q.notify({
+      message: message, 
+      color: 'secondary' 
+    })
+    router.push({
+      path: '/dashboard'
+    })
   }catch(error) {
     console.log(error)
   }
 }
+
 
 </script>
