@@ -29,6 +29,9 @@
 <script setup>
 import {ref} from 'vue'
 import {loginApi} from 'src/api/auth'
+import { useTokenStore } from 'src/stores/token-store'
+
+const tokenStore = useTokenStore()
 const email = ref("")
 const password = ref("")
 const login = async () => {
@@ -40,8 +43,13 @@ const login = async () => {
       password: password.value
     });
     console.log(response)
+    // 保存 Token 
+    const accessToken = response.data.accessToken 
+    // 保存到 Pinia中 ，还是在LocalStorage中呢？
+    tokenStore.setToken(accessToken)
   }catch(error) {
     console.log(error)
   }
 }
+
 </script>
