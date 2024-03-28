@@ -16,7 +16,6 @@
   </div> -->
  <!-- table -->
    <q-table 
-      style="height: 400px"
       flat bordered
       title="Actors"
       :rows="actorStore.getActors"
@@ -24,6 +23,27 @@
       row-key="id"
       virtual-scroll
    >
+    <template v-slot:top>
+          <q-btn flat outline dense color="primary" label="Add row" @click="show_dialog = true" ></q-btn>
+        <div class="q-pa-sm q-gutter-sm">
+          <q-dialog v-model="show_dialog">
+<q-card>
+            <q-card-section>
+              <div class="text-h6">添加一个新的演员</div>
+            </q-card-section>
+            <q-card-section>
+             <div class="col">
+                <q-input v-model="newActor.first_name" label="First Name"></q-input>
+                <q-input v-model="newActor.last_name" label="Last Name"></q-input>
+             </div> 
+            </q-card-section>
+            <q-card-section align="right">
+                <q-btn flat label="OK" color="primary" v-close-popup @click="toggleAdd" ></q-btn>
+            </q-card-section>
+</q-card>
+          </q-dialog>
+        </div>
+    </template>
    </q-table>
 
 
@@ -34,7 +54,16 @@
 <script setup>
 import { fetchActorApi } from 'src/api/actor';
 import { useActorStore } from 'src/stores/actor-store'
-import { onMounted } from 'vue';
+import { onMounted , ref } from 'vue';
+
+const show_dialog = ref(false)
+const newActor = ref({
+  first_name: '', 
+  last_name: ''
+})
+const toggleAdd = () =>{
+  console.log('@TODO: toggleAdd')
+}
 
 const columns = [
   {
@@ -46,6 +75,9 @@ const columns = [
   {
     name: '姓', label: 'lastname', field: 'last_name', sortable: true
   },
+  {
+    name: 'actions', label: 'Actions', field: 'actions'
+  }
 ]
 const actorStore = useActorStore()
 
