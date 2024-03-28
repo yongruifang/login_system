@@ -27,7 +27,7 @@
           <q-btn flat outline dense color="primary" label="Add row" @click="show_dialog = true" ></q-btn>
         <div class="q-pa-sm q-gutter-sm">
           <q-dialog v-model="show_dialog">
-<q-card>
+          <q-card>
             <q-card-section>
               <div class="text-h6">添加一个新的演员</div>
             </q-card-section>
@@ -40,13 +40,43 @@
             <q-card-section align="right">
                 <q-btn flat label="OK" color="primary" v-close-popup @click="toggleAdd" ></q-btn>
             </q-card-section>
-</q-card>
+          </q-card>
           </q-dialog>
         </div>
     </template>
+    <!-- troubleShoot: @save @delete not emit -->
+      <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td key="id" :props="props">
+              {{ props.row.id }}
+            </q-td>
+            <q-td key="first_name" :props="props">
+              {{ props.row.first_name }}
+              <!-- <q-popup-edit v-model="props.row.frist_name" title="Update firstName" buttons @input="(val, initialValue) => updateFirstName(val, initialValue, props.row)" @cancel="console.log('@@@cancel')">
+                <q-input v-model="props.row.first_name" dense autofocus counter ></q-input>
+              </q-popup-edit> -->
+            </q-td>
+            <q-td key="last_name" :props="props">
+              {{ props.row.last_name }}
+              <!-- <q-popup-edit v-model="props.row.last_name" title="Update lastName" buttons @input="(val, initialValue) => updateLastName(val, initialValue, props.row)" @cancel="console.log('@@cancel')">
+                <q-input v-model="props.row.last_name" dense autofocus ></q-input>
+              </q-popup-edit> -->
+            </q-td>
+            <q-td key="actions" :props="props">
+              <q-btn color="blue" dense flat round icon="edit" @click="toggleEdit" size=sm></q-btn>
+              <q-btn color="red" dense flat round icon="delete"  @click="toggleDelete" size=sm></q-btn>
+            </q-td>
+          </q-tr>
+        </template>
    </q-table>
-
-
+   <!-- <div class="q-pa-md">
+    <div class="cursor-pointer">
+      {{ label }}
+      <q-popup-edit v-model="label" v-slot="scope" buttons @save="onSave">
+        <q-input v-model="scope.value" dense autofocus counter @keyup.enter="scope.set" />
+      </q-popup-edit>
+    </div>
+  </div> -->
   </q-page>
 
 </template>
@@ -57,26 +87,43 @@ import { useActorStore } from 'src/stores/actor-store'
 import { onMounted , ref } from 'vue';
 
 const show_dialog = ref(false)
+const label = ref("click me")
+const onSave = (param) => {
+  console.log('cheer!!! toggleonSave')
+  console.log(param)
+}
 const newActor = ref({
   first_name: '', 
   last_name: ''
 })
+const updateFirstName = (val, initialValue, row) => {
+  console.log("cheer!!!Toggle it")
+}
+const updateLastName = (val, initialValue, row) => {
+  console.log("cheer!!!Toggle it")
+}
 const toggleAdd = () =>{
   console.log('@TODO: toggleAdd')
+}
+const toggleEdit = () => {
+  console.log('@TODO: toggleEdit')
+}
+const toggleDelete = () => {
+  console.log('@TODO: toggleDelete')
 }
 
 const columns = [
   {
-    name: '序号', label: 'id', field: 'id', sortable: true
+    name: 'id', label: 'id', field: 'id', sortable: true
   },
   {
-    name: '名', label: 'firstname', field: 'first_name', sortable: true
+    name: 'first_name', label: '名', field: 'first_name', sortable: true
   },
   {
-    name: '姓', label: 'lastname', field: 'last_name', sortable: true
+    name: 'last_name', label: '姓', field: 'last_name', sortable: true
   },
   {
-    name: 'actions', label: 'Actions', field: 'actions'
+    name: 'actions', label: '操作', field: 'actions', sortable: false
   }
 ]
 const actorStore = useActorStore()
