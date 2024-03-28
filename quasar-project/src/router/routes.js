@@ -12,7 +12,8 @@ const routes = [
     component: () => import('layouts/DashboardLayout.vue'),
     children: [
       { path: '', component: () => import('pages/DashboardPage.vue') },
-      { path: '/actors', component: () => import('pages/ActorsPage.vue')},
+      { path: '/actors', component: () => import('pages/DashboardPage.vue') },
+      { path: '/films', component: () => import('pages/DashboardPage.vue') },
     ]
   },
 

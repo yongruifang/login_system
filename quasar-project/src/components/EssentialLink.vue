@@ -3,7 +3,7 @@
     clickable
     tag="a"
     target="_blank"
-    :href="props.link"
+    @click="jump"
   >
     <q-item-section
       v-if="props.icon"
@@ -20,6 +20,8 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter()
 defineOptions({
   name: 'EssentialLink'
 })
@@ -45,4 +47,7 @@ const props = defineProps({
     default: ''
   }
 })
+const jump = () => {
+  router.push(props.link)
+}
 </script>

@@ -2,36 +2,16 @@
   <q-layout view="hHh Lpr fFf"> <!-- Be sure to play with the Layout demo on docs -->
 
     <!-- (Optional) The Header -->
-    <!-- <q-header elevated>
+    <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          round
-          dense
-          icon="menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn flat round dense icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          Header
+          Quasar App
         </q-toolbar-title>
       </q-toolbar>
 
-      <q-tabs>
-        <q-route-tab
-          icon="map"
-          to="/your/route"
-          replace
-          label="One Tab"
-        />
-        <q-route-tab
-          icon="assignment"
-          to="/some/other/route"
-          replace
-          label="Other Tab"
-        />
-      </q-tabs>
-    </q-header> -->
+    </q-header>
 
     <!-- (Optional) The Footer -->
     <!-- <q-footer>
@@ -65,15 +45,21 @@
     </q-footer> -->
 
     <!-- (Optional) A Drawer; you can add one more with side="right" or change this one's side -->
-    <q-drawer
-      v-model="leftDrawerOpen"
-      side="left"
-      bordered
-      class="bg-grey-2"
-    >
+    <q-drawer v-model="leftDrawerOpen" side="left" bordered class="bg-grey-2">
       <!-- QScrollArea is optional -->
       <q-scroll-area class="fit q-pa-sm">
         <!-- Content here -->
+        <div class="q-pa-sm">
+          <div v-for="item in menuList" :key="item">
+            <EssentialLink
+              :title = item.title 
+              :caption = item.caption  
+              :link = item.link
+              :icon = item.icon
+           />
+          </div>
+        </div>
+
       </q-scroll-area>
     </q-drawer>
 
@@ -85,21 +71,28 @@
   </q-layout>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue'
 
-export default {
-  // name: 'LayoutName',
+import EssentialLink from 'src/components/EssentialLink.vue';
 
-  setup () {
-    const leftDrawerOpen = ref(false)
+const leftDrawerOpen = ref(true)
 
-    return {
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
+const toggleLeftDrawer = () => {
+  leftDrawerOpen.value = !leftDrawerOpen.value
 }
+const menuList = ref([
+  {
+    title: "actor",
+    caption: "演员表",
+    link: "/actors",
+    icon: "face"
+  },
+  {
+    title: "film",
+    caption: "影集库",
+    link: "/films",
+    icon: "movie"
+  },
+])
 </script>
