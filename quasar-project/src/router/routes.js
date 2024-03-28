@@ -11,9 +11,9 @@ const routes = [
     path: '/dashboard',
     component: () => import('layouts/DashboardLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/DashboardPage.vue') },
-      { path: '/actors', component: () => import('pages/ActorPage.vue') },
-      { path: '/films', component: () => import('pages/FilmPage.vue') },
+      { path: '/dashboard', component: () => import('pages/DashboardPage.vue') },
+      { path: '/dashboard/actors', component: () => import('pages/ActorPage.vue') },
+      { path: '/dashboard/films', component: () => import('pages/FilmPage.vue') },
     ]
   },
 

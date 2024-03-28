@@ -83,15 +83,21 @@ const toggleLeftDrawer = () => {
 }
 const menuList = ref([
   {
+    title: "home",
+    caption: "首页",
+    link: "/dashboard",
+    icon: "home"
+  },
+  {
     title: "actor",
     caption: "演员表",
-    link: "/actors",
+    link: "/dashboard/actors",
     icon: "face"
   },
   {
     title: "film",
     caption: "影集库",
-    link: "/films",
+    link: "/dashboard/films",
     icon: "movie"
   },
 ])
