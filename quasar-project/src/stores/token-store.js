@@ -10,6 +10,9 @@ export const useTokenStore = defineStore('token', {
     actions: {
         setToken(token) {
             this.token = token
+        },
+        clearToken(token) {
+            this.token = ""
         }
     }
 })
