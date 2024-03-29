@@ -6,21 +6,19 @@ import { Notify } from 'quasar'
 
 const tokenStore = useTokenStore()
 const instance = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: "http://localhost:8080/api",
     timeout: 1000,
     headers: {
         'Authorization' : process.env.TOKEN_TYPE +  tokenStore.getToken
     }
 })
 instance.interceptors.request.use(function(config) {
-    console.log('@TODO: actor的axios带了什么token', config)
     return config
 })
 
 instance.interceptors.response.use(function(res){
     return res
 }, function(err)  {
-    console.log("@TODO: redirect to Login Page", err)
     if(err.response.status == 403) {
         console.log('clear token')
         // tokenStore.clearToken()
@@ -34,7 +32,7 @@ instance.interceptors.response.use(function(res){
     return Promise.reject(err)
 })
 export const fetchActorApi = async()=>{
-    const response = await instance.get("/actor")
+    const response = await instance.get("/actor/")
     return response
 }
 
@@ -43,17 +41,17 @@ export const editActorApi = async(actor={
     first_name: "",
     last_name: "",
 })=>{
-    const response = await instance.put("/actor", actor)
+    const response = await instance.put("/actor/", actor)
     return response
 }
 export const deleteActorApi = async(actorId=0) => {
-    const response = await instance.delete("/actor", actorId) 
+    const response = await instance.get(`/actor/${actorId}`) 
     return response
 }
 export const addActorApi = async(actor={
     first_name: "",
     last_name: "",
 }) => {
-    const response = await instance.post("/actor", actor)
+    const response = await instance.post("/actor/", actor)
     return response
 }

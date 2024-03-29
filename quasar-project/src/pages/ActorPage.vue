@@ -74,7 +74,7 @@
             </q-td>
             <q-td key="actions" :props="props">
               <q-btn color="blue" dense flat round icon="edit" @click="toggleEdit" size=sm></q-btn>
-              <q-btn color="red" dense flat round icon="delete"  @click="toggleDelete" size=sm></q-btn>
+              <q-btn color="red" dense flat round icon="delete"  @click="toggleDelete(props.row)" size=sm></q-btn>
             </q-td>
           </q-tr>
         </template>
@@ -96,6 +96,9 @@ import { addActorApi } from 'src/api/actor';
 import { fetchActorApi , editActorApi, deleteActorApi } from 'src/api/actor';
 import { useActorStore } from 'src/stores/actor-store'
 import { onMounted , ref } from 'vue';
+import { useQuasar } from 'quasar';
+
+const $q = useQuasar()
 
 const show_dialog = ref(false)
 const label = ref("click me")
@@ -120,8 +123,12 @@ const toggleAdd = async () =>{
     first_name: newActor.value.first_name,
     last_name: newActor.value.last_name
   }
-  console.log(actor)
   const response = await addActorApi(actor)
+  $q.notify({
+    message: "add actor successfully!",
+    color: 'primary'
+  })
+  await toggleFetch()
   console.log(response)
 }
 const toggleEdit = () => {
@@ -136,10 +143,23 @@ const toggleEditSave = async (actor = {
   const response = await editActorApi(actor)
   console.log(response)
 }
-const toggleDelete = async () => {
-  console.log('@TODO: toggleDelete, 一个弹窗提示')
-  const response = await deleteActorApi(0) 
-  console.log(response)
+const toggleDelete = async (row) => {
+  $q.dialog({
+    title: 'Confirm',
+    message: 'Would you like to delete it?',
+    cancel: true,
+    persistent: true
+  }).onOk( async () =>{
+  console.log('@TODO: toggleDelete, 删除用户')
+    console.log(row.id)
+    const response = await deleteActorApi(row.id) 
+    console.log(response)
+    $q.notify({
+      message: "delete success", 
+      color: "secondary"
+    })
+    toggleFetch()
+  })
 }
 
 const columns = [
@@ -159,18 +179,11 @@ const columns = [
 const actorStore = useActorStore()
 
 const toggleFetch = async () => {
-  console.log('@TODO: to fetch actor list')
   try{
   const response = await fetchActorApi();
-  console.log(response)
-  const { data: actors} = response;
-  console.log(actors, typeof(actors))
-  console.log('@TODO: object to array')
+  let actors = response.data.actorList
   let isArr = actors instanceof Array 
-  console.log('isArr: ', isArr)
-  console.log('now actorStore is: ', actorStore.getActors)
   actorStore.setActors(actors)
-  
   }catch(err) {
     console.log('need redirect', err)
   }
