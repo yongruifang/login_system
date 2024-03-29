@@ -1,6 +1,10 @@
 package org.example.service;
 
 
+import org.example.entity.Role;
+
+import java.util.List;
+
 public interface RoleService {
-    String getRole(Long userId);
+    List<Role> getRole(Long userId);
 }

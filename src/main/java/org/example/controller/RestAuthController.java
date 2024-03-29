@@ -6,6 +6,7 @@ import lombok.val;
 import org.example.dto.UserDto;
 import org.example.dto.response.JwtAuthResponse;
 import org.example.dto.response.RegisterResponse;
+import org.example.entity.Role;
 import org.example.entity.User;
 import org.example.service.AuthService;
 import org.example.service.RoleService;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -33,8 +36,9 @@ public class RestAuthController {
         JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
         jwtAuthResponse.setAccessToken(token);
         jwtAuthResponse.setMessage("user login successfully");
-        String role =  roleService.getRole(user.getId());
-        jwtAuthResponse.setRole(role);
+        User existing = userService.findUserByEmail(user.getEmail());
+        List<Role> roles =  roleService.getRole(existing.getId());
+        jwtAuthResponse.setRoles(roles);
         return ResponseEntity.ok(jwtAuthResponse);
     }
     @PostMapping("/register")

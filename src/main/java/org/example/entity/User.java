@@ -7,7 +7,8 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("user")
@@ -28,6 +29,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    // 关系维护端
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
