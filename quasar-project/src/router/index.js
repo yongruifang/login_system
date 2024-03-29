@@ -1,6 +1,7 @@
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
+import { Notify } from 'quasar'
 
 /*
  * If not building with SSR mode, you can
@@ -26,5 +27,15 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
 
+  Router.beforeEach((to, from, next) => {
+    if(to.name === 'user') {
+      Notify.create({
+        message: "you have no permission to userPage"
+      })
+      next(from)
+    }else{
+      next()
+    }
+  })
   return Router
 })

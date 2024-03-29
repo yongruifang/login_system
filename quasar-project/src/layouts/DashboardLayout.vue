@@ -100,5 +100,11 @@ const menuList = ref([
     link: "/dashboard/films",
     icon: "movie"
   },
+  {
+    title: "user",
+    caption: "用户表",
+    link: "/dashboard/users",
+    icon: "person"
+  },
 ])
 </script>

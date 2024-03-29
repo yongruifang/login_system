@@ -14,6 +14,9 @@ const routes = [
       { path: '/dashboard', component: () => import('pages/DashboardPage.vue') },
       { path: '/dashboard/actors', component: () => import('pages/ActorPage.vue') },
       { path: '/dashboard/films', component: () => import('pages/FilmPage.vue') },
+      { path: '/dashboard/users',
+      name: "user",
+      component: () => import('pages/UserPage.vue') },
     ]
   },
 
