@@ -72,6 +72,9 @@
                 <q-input v-model="props.row.last_name" dense autofocus ></q-input>
               </q-popup-edit> -->
             </q-td>
+            <q-td key="last_name" :props="props">
+              {{ props.row.last_update }}
+            </q-td>
             <q-td key="actions" :props="props">
               <q-btn color="blue" dense flat round icon="edit" @click="toggleEdit(props.row)" size=sm></q-btn>
               <q-btn color="red" dense flat round icon="delete"  @click="toggleDelete(props.row)" size=sm></q-btn>
@@ -96,14 +99,6 @@
             </q-card-section>
           </q-card>
           </q-dialog>
-          <div class="col-6">
-          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-          </div>
-       
         </div>
    <!-- <div class="q-pa-md">
     <div class="cursor-pointer">
@@ -203,6 +198,9 @@ const columns = [
     name: 'last_name', label: '姓', field: 'last_name', sortable: true
   },
   {
+    name: 'last_update', label: '更新时间', field: 'last_update', sortable: true
+  },
+  {
     name: 'actions', label: '操作', field: 'actions', sortable: false
   }
 ]
@@ -212,6 +210,8 @@ const toggleFetch = async () => {
   try{
   const response = await fetchActorApi();
   let actors = response.data.actorList
+  console.log('发现时间戳')
+  console.log(actors[0])
   let isArr = actors instanceof Array 
   actorStore.setActors(actors)
   }catch(err) {
