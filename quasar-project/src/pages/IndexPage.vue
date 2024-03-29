@@ -53,8 +53,13 @@ const login = async () => {
       password: password.value
     });
     console.log(response)
+    console.log('@TODO: 从response中找到role的信息')
     const accessToken = response.data.accessToken 
+    const roles = response.data.roles
+    console.log(roles , typeof(roles))
     tokenStore.setToken(accessToken)
+    tokenStore.setRoles(roles)
+    console.log('当前角色', tokenStore.roles)
     const { message } = response.data
     $q.notify({
       message: message, 
