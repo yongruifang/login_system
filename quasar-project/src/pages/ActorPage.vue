@@ -73,7 +73,8 @@
               </q-popup-edit> -->
             </q-td>
             <q-td key="last_name" :props="props">
-              {{ props.row.last_update }}
+              <!-- {{ date.formatDate(props.row.last_update, 'YYYY-MM-DDTHH:mm:ss')  }} -->
+              {{ date.formatDate(props.row.last_update, 'YYYY-MM-DD HH:mm')  }}
             </q-td>
             <q-td key="actions" :props="props">
               <q-btn color="blue" dense flat round icon="edit" @click="toggleEdit(props.row)" size=sm></q-btn>
@@ -117,7 +118,7 @@ import { addActorApi } from 'src/api/actor';
 import { fetchActorApi , editActorApi, deleteActorApi } from 'src/api/actor';
 import { useActorStore } from 'src/stores/actor-store'
 import { onMounted , ref } from 'vue';
-import { useQuasar } from 'quasar';
+import { useQuasar , date } from 'quasar';
 
 const $q = useQuasar()
 
