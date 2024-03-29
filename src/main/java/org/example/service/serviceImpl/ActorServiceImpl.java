@@ -51,6 +51,8 @@ public class ActorServiceImpl implements ActorService {
         System.out.println("**********************");
         LocalDateTime datetime = actorMapper.now();
         System.out.println(datetime);
-        return null;
+        List<Actor> actors =  actorMapper.filterByInterval(fromInstant, toInstant);
+        System.out.println(actors.size());
+        return actors;
     }
 }

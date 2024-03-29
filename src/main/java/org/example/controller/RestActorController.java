@@ -47,7 +47,7 @@ public class RestActorController {
     }
 
     @PostMapping("/time")
-    public ResponseEntity<String> fetchByTimezone (
+    public ResponseEntity<ActorListResponse> fetchByTimezone (
             @RequestBody Timezone timezone
     ){
         String from = timezone.getFrom();
@@ -56,8 +56,11 @@ public class RestActorController {
         System.out.println(from);
         System.out.println(to);
         System.out.println("**********************");
-        actorService.filterByTimezone(from, to);
-        return ResponseEntity.ok("@TODO: fetchByTimezone");
+        List actors =  actorService.filterByTimezone(from, to);
+        val actorListResponse = new ActorListResponse();
+        actorListResponse.setMessage("success");
+        actorListResponse.setActorList(actors);
+        return ResponseEntity.ok(actorListResponse);
     }
     @PutMapping("/")
     public ResponseEntity<AddActorResponse> updateOne(

@@ -6,4 +6,10 @@
     <select id="now" resultType="java.time.LocalDateTime">
         SELECT NOW();
     </select>
+    <select id="filterByInterval" resultType="org.example.entity.Actor">
+        SELECT * FROM actor
+        <where>
+            last_update BETWEEN #{from} AND #{to}
+        </where>
+    </select>
 </mapper>
