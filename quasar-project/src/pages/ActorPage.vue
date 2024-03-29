@@ -83,6 +83,54 @@
           </q-tr>
         </template>
    </q-table>
+      <q-card>
+            <q-card-section>
+              <div class="text-h6">时间区间过滤器</div>
+            </q-card-section>
+            <q-card-section>
+              <div class="row">
+               <div class="q-pa-md">
+                  <div class="q-mb-sm">
+                    <q-badge color="teal">
+                      起: {{ start_date }}
+                    </q-badge>
+                  </div>
+                  <q-btn icon="event" round color="primary">
+                    <q-popup-proxy @before-show="updateStartProxy" cover transition-show="scale" transition-hide="scale">
+                      <q-date v-model="proxyStartDate">
+                        <div class="row items-center justify-end q-gutter-sm">
+                          <q-btn label="Cancel" color="primary" flat v-close-popup />
+                          <q-btn label="OK" color="primary" flat @click="saveStart" v-close-popup />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-btn>
+              </div> 
+               <div class="q-pa-md">
+                  <div class="q-mb-sm">
+                    <q-badge color="teal">
+                      止: {{ end_date }}
+                    </q-badge>
+                  </div>
+                  <q-btn icon="event" round color="primary">
+                    <q-popup-proxy @before-show="updateEndProxy" cover transition-show="scale" transition-hide="scale">
+                      <q-date v-model="proxyEndDate">
+                        <div class="row items-center justify-end q-gutter-sm">
+                          <q-btn label="Cancel" color="primary" flat v-close-popup />
+                          <q-btn label="OK" color="primary" flat @click="saveEnd" v-close-popup />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-btn>
+              </div> 
+              </div>
+            <q-card-section align="left">
+                <q-btn flat label="OK" color="primary" v-close-popup @click="toggleTimeFilter" ></q-btn>
+            </q-card-section>
+            </q-card-section>
+      </q-card>
+   <q-table>
+    </q-table>
     <div class="q-pa-sm q-gutter-sm">
           <q-dialog v-model="show_edit_dialog">
           <q-card>
@@ -115,17 +163,41 @@
 
 <script setup>
 import { addActorApi } from 'src/api/actor';
-import { fetchActorApi , editActorApi, deleteActorApi } from 'src/api/actor';
+import { fetchActorApi , editActorApi, deleteActorApi, filterActorByTimeApi } from 'src/api/actor';
 import { useActorStore } from 'src/stores/actor-store'
 import { onMounted , ref } from 'vue';
 import { useQuasar , date } from 'quasar';
 
 const $q = useQuasar()
 
+const start_date = ref('2019/03/01')
+const end_date = ref('2019/03/01')
+const proxyStartDate = ref('2019/03/01')
+const proxyEndDate = ref('2019/03/01')
 const show_dialog = ref(false)
 const show_edit_dialog = ref(false)
 const label = ref("click me")
 const filter = ref("")
+const toggleTimeFilter = async () => {
+  console.log('@TODO: 时间区间选择器 ')
+  const from = start_date.value
+  const to = end_date.value
+  console.log(`from: ${from} , to : ${to}`)
+  const response = await filterActorByTimeApi(from, to)
+  console.log(response)  
+}
+const updateStartProxy = () => {
+  proxyStartDate.value = start_date.value 
+}
+const updateEndProxy = () => {
+  proxyEndDate.value = end_date.value
+}
+const saveStart = () =>{
+  start_date.value = proxyStartDate.value
+}
+const saveEnd = () =>{
+  end_date.value = proxyEndDate.value
+}
 const onSave = (param) => {
   console.log('cheer!!! toggleonSave')
   console.log(param)

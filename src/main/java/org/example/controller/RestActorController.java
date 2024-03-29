@@ -3,6 +3,7 @@ package org.example.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.val;
+import org.example.dto.request.Timezone;
 import org.example.dto.response.ActorListResponse;
 import org.example.dto.response.AddActorResponse;
 import org.example.entity.Actor;
@@ -45,6 +46,13 @@ public class RestActorController {
         return ResponseEntity.ok(addActorResponse);
     }
 
+    @PostMapping("/time")
+    public ResponseEntity<String> fetchByTimezone (
+            @RequestBody Timezone timezone
+    ){
+
+        return ResponseEntity.ok("@TODO: fetchByTimezone");
+    }
     @PutMapping("/")
     public ResponseEntity<AddActorResponse> updateOne(
             @RequestBody Actor actor

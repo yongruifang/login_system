@@ -55,3 +55,11 @@ export const addActorApi = async(actor={
     const response = await instance.post("/actor/", actor)
     return response
 }
+
+export const filterActorByTimeApi = async  (from, to) => {
+    const response = await instance.post("/actor/time", {
+        from: from, 
+        to: to 
+    })
+    return response
+}
