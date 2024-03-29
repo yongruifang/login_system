@@ -129,8 +129,36 @@
             </q-card-section>
             </q-card-section>
       </q-card>
-   <q-table>
-    </q-table>
+   <q-table 
+      flat bordered
+      title="Actors"
+      :rows="actors"
+      :columns="columns.slice(0, -1)"
+      :filter="filter"
+      row-key="id"
+      virtual-scroll
+   >
+      <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td key="id" :props="props">
+              {{ props.row.id }}
+            </q-td>
+            <q-td key="first_name" :props="props">
+              {{ props.row.first_name }}
+            </q-td>
+            <q-td key="last_name" :props="props">
+              {{ props.row.last_name }}
+            </q-td>
+            <q-td key="last_name" :props="props">
+              {{ date.formatDate(props.row.last_update, 'YYYY-MM-DD HH:mm')  }}
+            </q-td>
+            <!-- <q-td key="actions" :props="props">
+              <q-btn color="blue" dense flat round icon="edit" @click="toggleEdit(props.row)" size=sm></q-btn>
+              <q-btn color="red" dense flat round icon="delete"  @click="toggleDelete(props.row)" size=sm></q-btn>
+            </q-td> -->
+          </q-tr>
+        </template>
+   </q-table>
     <div class="q-pa-sm q-gutter-sm">
           <q-dialog v-model="show_edit_dialog">
           <q-card>
@@ -178,6 +206,7 @@ const show_dialog = ref(false)
 const show_edit_dialog = ref(false)
 const label = ref("click me")
 const filter = ref("")
+const actors = ref()
 const toggleTimeFilter = async () => {
   console.log('@TODO: 时间区间选择器 ')
   const from = start_date.value
@@ -185,6 +214,8 @@ const toggleTimeFilter = async () => {
   console.log(`from: ${from} , to : ${to}`)
   const response = await filterActorByTimeApi(from, to)
   console.log(response)  
+  actors.value = response.data.actorList
+  console.log(actors.value) 
 }
 const updateStartProxy = () => {
   proxyStartDate.value = start_date.value 
