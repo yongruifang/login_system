@@ -30,7 +30,13 @@ export default route(function (/* { store, ssrContext } */) {
 
   Router.beforeEach((to, from, next) => {
     let isAdmin = false
-    isAdmin = LocalStorage.getIndex('role') === "admin"
+    const roles = LocalStorage.getItem('roles')
+    console.log('@TODO: 根据Role判断路由权限', roles)
+    isAdmin = Array.from(roles).some((item) => {
+      console.log(item)
+      return item.name == 'ROLE_ADMIN' 
+    })
+    if(isAdmin) console.log('you are a admin')
     if(to.name === 'user' && !isAdmin) {
       Notify.create({
         message: "you have no permission to userPage"
