@@ -8,6 +8,7 @@ import org.example.dto.response.JwtAuthResponse;
 import org.example.dto.response.RegisterResponse;
 import org.example.entity.User;
 import org.example.service.AuthService;
+import org.example.service.RoleService;
 import org.example.service.UserService;
 import org.example.util.Status;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestAuthController {
     private AuthService authService;
     private UserService userService;
+    private RoleService roleService;
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> authenticate (
             @RequestBody User user
@@ -31,6 +33,8 @@ public class RestAuthController {
         JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
         jwtAuthResponse.setAccessToken(token);
         jwtAuthResponse.setMessage("user login successfully");
+        String role =  roleService.getRole(user.getId());
+        jwtAuthResponse.setRole(role);
         return ResponseEntity.ok(jwtAuthResponse);
     }
     @PostMapping("/register")

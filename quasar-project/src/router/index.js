@@ -2,6 +2,7 @@ import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
 import { Notify } from 'quasar'
+import { LocalStorage } from 'quasar'
 
 /*
  * If not building with SSR mode, you can
@@ -28,7 +29,9 @@ export default route(function (/* { store, ssrContext } */) {
   })
 
   Router.beforeEach((to, from, next) => {
-    if(to.name === 'user') {
+    let isAdmin = false
+    isAdmin = LocalStorage.getIndex('role') === "admin"
+    if(to.name === 'user' && !isAdmin) {
       Notify.create({
         message: "you have no permission to userPage"
       })
