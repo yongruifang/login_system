@@ -73,12 +73,38 @@
               </q-popup-edit> -->
             </q-td>
             <q-td key="actions" :props="props">
-              <q-btn color="blue" dense flat round icon="edit" @click="toggleEdit" size=sm></q-btn>
+              <q-btn color="blue" dense flat round icon="edit" @click="toggleEdit(props.row)" size=sm></q-btn>
               <q-btn color="red" dense flat round icon="delete"  @click="toggleDelete(props.row)" size=sm></q-btn>
             </q-td>
           </q-tr>
         </template>
    </q-table>
+    <div class="q-pa-sm q-gutter-sm">
+          <q-dialog v-model="show_edit_dialog">
+          <q-card>
+            <q-card-section>
+              <div class="text-h6">修改演员</div>
+            </q-card-section>
+            <q-card-section>
+             <div class="col">
+                <q-input v-model="editActor.first_name" label="First Name"></q-input>
+                <q-input v-model="editActor.last_name" label="Last Name"></q-input>
+             </div> 
+            </q-card-section>
+            <q-card-section align="right">
+                <q-btn flat label="OK" color="primary" v-close-popup @click="toggleEditSave" ></q-btn>
+            </q-card-section>
+          </q-card>
+          </q-dialog>
+          <div class="col-6">
+          <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
+          </q-input>
+          </div>
+       
+        </div>
    <!-- <div class="q-pa-md">
     <div class="cursor-pointer">
       {{ label }}
@@ -101,6 +127,7 @@ import { useQuasar } from 'quasar';
 const $q = useQuasar()
 
 const show_dialog = ref(false)
+const show_edit_dialog = ref(false)
 const label = ref("click me")
 const filter = ref("")
 const onSave = (param) => {
@@ -111,12 +138,12 @@ const newActor = ref({
   first_name: '', 
   last_name: ''
 })
-const updateFirstName = (val, initialValue, row) => {
-  console.log("cheer!!!Toggle it")
-}
-const updateLastName = (val, initialValue, row) => {
-  console.log("cheer!!!Toggle it")
-}
+const editActor = ref({
+  id: 0,
+  first_name: "", 
+  last_name : ""
+})
+
 const toggleAdd = async () =>{
   console.log('@TODO: toggleAdd')
   const actor = {
@@ -131,17 +158,20 @@ const toggleAdd = async () =>{
   await toggleFetch()
   console.log(response)
 }
-const toggleEdit = () => {
-  console.log('@TODO: toggleEdit, 先做弹窗')
+const toggleEdit = (row) => {
+  show_edit_dialog.value = true
+  editActor.value.id = row.id
+  editActor.value.first_name = row.first_name 
+  editActor.value.last_name = row.last_name
 }
-const toggleEditSave = async (actor = {
-  id: 0,
-  first_name: "",
-  last_name: ""
-}) => {
-  console.log('@TODO: 发送API')
-  const response = await editActorApi(actor)
+const toggleEditSave = async () => {
+  const response = await editActorApi(editActor.value)
   console.log(response)
+  toggleFetch()
+  $q.notify({
+    message: "update successfully", 
+    color: 'secondary'
+  })
 }
 const toggleDelete = async (row) => {
   $q.dialog({

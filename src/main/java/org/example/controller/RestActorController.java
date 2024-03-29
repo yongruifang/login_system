@@ -27,7 +27,6 @@ public class RestActorController {
         System.out.println("获取演员列表");
         List<Actor> actors = new ArrayList<>();
         for(Actor actor: actorMapper.selectList(null) ){
-            System.out.println(actor);
             actors.add(actor);
         }
         val actorListResponse = new ActorListResponse();
@@ -50,6 +49,9 @@ public class RestActorController {
     public ResponseEntity<AddActorResponse> updateOne(
             @RequestBody Actor actor
     ) {
+        System.out.println("$$$$$$$$$update actor$$$$$$$$$$$$$");
+        System.out.println(actor);
+        System.out.println("$$$$$$$$$update actor$$$$$$$$$$$$$");
         int id = actorMapper.updateById(actor);
         val addActorResponse = new AddActorResponse();
         addActorResponse.setMessage("Update success");
