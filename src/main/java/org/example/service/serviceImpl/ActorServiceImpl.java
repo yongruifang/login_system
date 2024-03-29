@@ -49,6 +49,8 @@ public class ActorServiceImpl implements ActorService {
         System.out.println(fromInstant);
         System.out.println(toInstant);
         System.out.println("**********************");
+        LocalDateTime datetime = actorMapper.now();
+        System.out.println(datetime);
         return null;
     }
 }
