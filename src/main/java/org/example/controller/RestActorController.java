@@ -50,7 +50,13 @@ public class RestActorController {
     public ResponseEntity<String> fetchByTimezone (
             @RequestBody Timezone timezone
     ){
-
+        String from = timezone.getFrom();
+        String to = timezone.getTo();
+        System.out.println("**********************");
+        System.out.println(from);
+        System.out.println(to);
+        System.out.println("**********************");
+        actorService.filterByTimezone(from, to);
         return ResponseEntity.ok("@TODO: fetchByTimezone");
     }
     @PutMapping("/")
