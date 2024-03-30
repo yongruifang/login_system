@@ -43,9 +43,11 @@ public class RestUserController {
     public ResponseEntity<String> alterRole(
             @RequestBody AlterRoleRequest body
             ) {
-        
+
         String email = body.getEmail();
+        System.out.println("邮箱:"+email);
         List<Role> roles = body.getRoles();
+        System.out.println("角色列表:"+roles);
         User user = userRepository.findByEmail(email);
         user.setRoles(roles);
         userRepository.save(user);

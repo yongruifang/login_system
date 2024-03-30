@@ -6,7 +6,27 @@ export const fetchUserApi = async() => {
 }
 
 
-export const setUserRoleApi = async() => {
-  const response = await instance.post("/user/roles")
+export const setUserRoleApi = async({
+  email,
+  is_admin,
+  is_user
+}) => {
+  let roles = []
+  if(is_admin) {
+    roles.push({
+      "id" : "1",
+      "name" : "ROLE_ADMIN"
+    })
+  }
+  if(is_user) {
+    roles.push ({
+      "id": "2",
+      "name": "ROLE_USER"
+    })
+  }
+  const response = await instance.post("/user/roles", {
+    email: email,
+    roles: roles
+  })
   return response;
 }
