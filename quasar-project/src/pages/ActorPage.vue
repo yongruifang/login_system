@@ -2,9 +2,6 @@
   <q-page padding>
     <!-- content -->
     Welcome to ActorPage
-  <div class="q-pa-md q-gutter-sm">
-    <q-btn round color="primary" icon="cached" @click="toggleFetch"/>
-  </div>
   <!-- the 10th actor -->
   <!-- <div>
     {{ actorStore.getTenthActor }}
@@ -24,8 +21,13 @@
       row-key="id"
       virtual-scroll
    >
-    <template v-slot:top>
-          <q-btn flat outline dense color="primary" label="Add row" @click="show_dialog = true" ></q-btn>
+    <template v-slot:top-right>
+          <q-btn class="q-mr-md" round color="secondary" icon="cached" @click="toggleFetch">
+        <q-tooltip>
+          refresh
+        </q-tooltip>
+            </q-btn>
+          <q-btn  class="q-mr-md" color="primary" label="Add row" @click="show_dialog = true" ></q-btn>
         <div class="q-pa-sm q-gutter-sm">
           <q-dialog v-model="show_dialog">
           <q-card>

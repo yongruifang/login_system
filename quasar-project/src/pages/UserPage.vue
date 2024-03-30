@@ -1,10 +1,9 @@
 <template>
   <q-page padding>
     <!-- content -->
-    Welcome to user page
-  <div class="q-pa-md q-gutter-sm">
-    <q-btn round color="primary" icon="cached" @click="toggleFetch"/>
-  </div>
+    <q-banner class="bg-red text-white q-my-md">
+      Note: Only admin can access user page.
+    </q-banner>
 
   <q-table
     flat bordered
@@ -14,6 +13,13 @@
     row-key="email"
     virtual-scroll
   >
+  <template v-slot:top-right>
+    <q-btn round color="primary" icon="cached" @click="toggleFetch">
+        <q-tooltip>
+          refresh
+        </q-tooltip>
+    </q-btn>
+  </template>
   <template v-slot:body="props">
     <q-tr :props = "props">
       <q-td key="email" :props="props">
