@@ -43,7 +43,7 @@ public class RestUserController {
     public ResponseEntity<String> alterRole(
             @RequestBody AlterRoleRequest body
             ) {
-
+        
         String email = body.getEmail();
         List<Role> roles = body.getRoles();
         User user = userRepository.findByEmail(email);
