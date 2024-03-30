@@ -15,7 +15,7 @@
    {{ actor }}
   </div> -->
  <!-- table -->
-   <q-table 
+   <q-table
       flat bordered
       title="Actors"
       :rows="actorStore.getActors"
@@ -34,9 +34,9 @@
             </q-card-section>
             <q-card-section>
              <div class="col">
-                <q-input v-model="newActor.first_name" label="First Name"></q-input>
-                <q-input v-model="newActor.last_name" label="Last Name"></q-input>
-             </div> 
+                <q-input v-model="newActor.firstName" label="First Name"></q-input>
+                <q-input v-model="newActor.lastName" label="Last Name"></q-input>
+             </div>
             </q-card-section>
             <q-card-section align="right">
                 <q-btn flat label="OK" color="primary" v-close-popup @click="toggleAdd" ></q-btn>
@@ -50,31 +50,33 @@
             </template>
           </q-input>
           </div>
-       
+
         </div>
     </template>
-    
+
     <!-- troubleShoot: @save @delete not emit -->
       <template v-slot:body="props">
           <q-tr :props="props">
             <q-td key="id" :props="props">
               {{ props.row.id }}
+              <!-- {{ props.row }} -->
+              <!-- {{ props.row.firstName }} -->
             </q-td>
-            <q-td key="first_name" :props="props">
-              {{ props.row.first_name }}
+            <q-td key="firstName" :props="props">
+              {{ props.row.firstName }}
               <!-- <q-popup-edit v-model="props.row.frist_name" title="Update firstName" buttons @input="(val, initialValue) => updateFirstName(val, initialValue, props.row)" @cancel="console.log('@@@cancel')">
-                <q-input v-model="props.row.first_name" dense autofocus counter ></q-input>
+                <q-input v-model="props.row.firstName" dense autofocus counter ></q-input>
               </q-popup-edit> -->
             </q-td>
-            <q-td key="last_name" :props="props">
-              {{ props.row.last_name }}
-              <!-- <q-popup-edit v-model="props.row.last_name" title="Update lastName" buttons @input="(val, initialValue) => updateLastName(val, initialValue, props.row)" @cancel="console.log('@@cancel')">
-                <q-input v-model="props.row.last_name" dense autofocus ></q-input>
+            <q-td key="lastName" :props="props">
+              {{ props.row.lastName }}
+              <!-- <q-popup-edit v-model="props.row.lastName" title="Update lastName" buttons @input="(val, initialValue) => updateLastName(val, initialValue, props.row)" @cancel="console.log('@@cancel')">
+                <q-input v-model="props.row.lastName" dense autofocus ></q-input>
               </q-popup-edit> -->
             </q-td>
-            <q-td key="last_name" :props="props">
-              <!-- {{ date.formatDate(props.row.last_update, 'YYYY-MM-DDTHH:mm:ss')  }} -->
-              {{ date.formatDate(props.row.last_update, 'YYYY-MM-DD HH:mm')  }}
+            <q-td key="lastUpdate" :props="props">
+              <!-- {{ date.formatDate(props.row.lastUpdate, 'YYYY-MM-DDTHH:mm:ss')  }} -->
+              {{ date.formatDate(props.row.lastUpdate, 'YYYY-MM-DD HH:mm')  }}
             </q-td>
             <q-td key="actions" :props="props">
               <q-btn color="blue" dense flat round icon="edit" @click="toggleEdit(props.row)" size=sm></q-btn>
@@ -105,7 +107,7 @@
                       </q-date>
                     </q-popup-proxy>
                   </q-btn>
-              </div> 
+              </div>
                <div class="q-pa-md">
                   <div class="q-mb-sm">
                     <q-badge color="teal">
@@ -122,14 +124,14 @@
                       </q-date>
                     </q-popup-proxy>
                   </q-btn>
-              </div> 
+              </div>
               </div>
             <q-card-section align="left">
                 <q-btn flat label="OK" color="primary" v-close-popup @click="toggleTimeFilter" ></q-btn>
             </q-card-section>
             </q-card-section>
       </q-card>
-   <q-table 
+   <q-table
       flat bordered
       title="Actors"
       :rows="actors"
@@ -143,14 +145,14 @@
             <q-td key="id" :props="props">
               {{ props.row.id }}
             </q-td>
-            <q-td key="first_name" :props="props">
-              {{ props.row.first_name }}
+            <q-td key="firstName" :props="props">
+              {{ props.row.firstName }}
             </q-td>
-            <q-td key="last_name" :props="props">
-              {{ props.row.last_name }}
+            <q-td key="lastName" :props="props">
+              {{ props.row.lastName }}
             </q-td>
-            <q-td key="last_name" :props="props">
-              {{ date.formatDate(props.row.last_update, 'YYYY-MM-DD HH:mm')  }}
+            <q-td key="lastName" :props="props">
+              {{ date.formatDate(props.row.lastUpdate, 'YYYY-MM-DD HH:mm')  }}
             </q-td>
             <!-- <q-td key="actions" :props="props">
               <q-btn color="blue" dense flat round icon="edit" @click="toggleEdit(props.row)" size=sm></q-btn>
@@ -167,9 +169,9 @@
             </q-card-section>
             <q-card-section>
              <div class="col">
-                <q-input v-model="editActor.first_name" label="First Name"></q-input>
-                <q-input v-model="editActor.last_name" label="Last Name"></q-input>
-             </div> 
+                <q-input v-model="editActor.firstName" label="First Name"></q-input>
+                <q-input v-model="editActor.lastName" label="Last Name"></q-input>
+             </div>
             </q-card-section>
             <q-card-section align="right">
                 <q-btn flat label="OK" color="primary" v-close-popup @click="toggleEditSave" ></q-btn>
@@ -213,12 +215,12 @@ const toggleTimeFilter = async () => {
   const to = end_date.value
   console.log(`from: ${from} , to : ${to}`)
   const response = await filterActorByTimeApi(from, to)
-  console.log(response)  
+  console.log(response)
   actors.value = response.data.actorList
-  console.log(actors.value) 
+  console.log(actors.value)
 }
 const updateStartProxy = () => {
-  proxyStartDate.value = start_date.value 
+  proxyStartDate.value = start_date.value
 }
 const updateEndProxy = () => {
   proxyEndDate.value = end_date.value
@@ -234,20 +236,20 @@ const onSave = (param) => {
   console.log(param)
 }
 const newActor = ref({
-  first_name: '', 
-  last_name: ''
+  firstName: '',
+  lastName: ''
 })
 const editActor = ref({
   id: 0,
-  first_name: "", 
-  last_name : ""
+  firstName: "",
+  lastName : ""
 })
 
 const toggleAdd = async () =>{
   console.log('@TODO: toggleAdd')
   const actor = {
-    first_name: newActor.value.first_name,
-    last_name: newActor.value.last_name
+    firstName: newActor.value.firstName,
+    lastName: newActor.value.lastName
   }
   const response = await addActorApi(actor)
   $q.notify({
@@ -260,15 +262,15 @@ const toggleAdd = async () =>{
 const toggleEdit = (row) => {
   show_edit_dialog.value = true
   editActor.value.id = row.id
-  editActor.value.first_name = row.first_name 
-  editActor.value.last_name = row.last_name
+  editActor.value.firstName = row.firstName
+  editActor.value.lastName = row.lastName
 }
 const toggleEditSave = async () => {
   const response = await editActorApi(editActor.value)
   console.log(response)
   toggleFetch()
   $q.notify({
-    message: "update successfully", 
+    message: "update successfully",
     color: 'secondary'
   })
 }
@@ -281,10 +283,10 @@ const toggleDelete = async (row) => {
   }).onOk( async () =>{
   console.log('@TODO: toggleDelete, 删除用户')
     console.log(row.id)
-    const response = await deleteActorApi(row.id) 
+    const response = await deleteActorApi(row.id)
     console.log(response)
     $q.notify({
-      message: "delete success", 
+      message: "delete success",
       color: "secondary"
     })
     toggleFetch()
@@ -296,13 +298,13 @@ const columns = [
     name: 'id', label: 'id', field: 'id', sortable: true
   },
   {
-    name: 'first_name', label: '名', field: 'first_name', sortable: true
+    name: 'firstName', label: '名', field: 'firstName', sortable: true
   },
   {
-    name: 'last_name', label: '姓', field: 'last_name', sortable: true
+    name: 'lastName', label: '姓', field: 'lastName', sortable: true
   },
   {
-    name: 'last_update', label: '更新时间', field: 'last_update', sortable: true
+    name: 'lastUpdate', label: '更新时间', field: 'lastUpdate', sortable: true
   },
   {
     name: 'actions', label: '操作', field: 'actions', sortable: false
@@ -316,7 +318,7 @@ const toggleFetch = async () => {
   let actors = response.data.actorList
   console.log('发现时间戳')
   console.log(actors[0])
-  let isArr = actors instanceof Array 
+  let isArr = actors instanceof Array
   actorStore.setActors(actors)
   }catch(err) {
     console.log('need redirect', err)

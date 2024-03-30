@@ -23,10 +23,10 @@ instance.interceptors.response.use(function(res){
         console.log('clear token')
         // tokenStore.clearToken()
         Notify.create({
-            message: 'Token expired, redirect to login page.', 
+            message: 'Token expired, redirect to login page.',
             color: "negative"
         })
-        // 重定向 
+        // 重定向
         globalRouter.router.push("/")
     }
     return Promise.reject(err)
@@ -38,19 +38,19 @@ export const fetchActorApi = async()=>{
 
 export const editActorApi = async(actor={
     id: "",
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
 })=>{
     const response = await instance.put("/actor/", actor)
     return response
 }
 export const deleteActorApi = async(actorId=0) => {
-    const response = await instance.get(`/actor/${actorId}`) 
+    const response = await instance.get(`/actor/${actorId}`)
     return response
 }
 export const addActorApi = async(actor={
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
 }) => {
     const response = await instance.post("/actor/", actor)
     return response
@@ -58,8 +58,8 @@ export const addActorApi = async(actor={
 
 export const filterActorByTimeApi = async  (from, to) => {
     const response = await instance.post("/actor/time", {
-        from: from, 
-        to: to 
+        from: from,
+        to: to
     })
     return response
 }

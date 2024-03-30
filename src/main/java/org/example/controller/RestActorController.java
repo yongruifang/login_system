@@ -39,7 +39,10 @@ public class RestActorController {
     public ResponseEntity<AddActorResponse> addOne (
         @RequestBody Actor actor
     ){
-        int id = actorMapper.insert(new Actor( actor.getFirst_name(), actor.getLast_name()));
+        val newOne = new Actor();
+        newOne.setFirstName(actor.getFirstName());
+        newOne.setLastName(actor.getLastName());
+        int id = actorMapper.insert(newOne);
         val addActorResponse = new AddActorResponse();
         addActorResponse.setMessage("success");
         addActorResponse.setActorId(id);
