@@ -2,7 +2,7 @@
   <q-page padding>
     <!-- content -->
     <q-banner class="bg-red text-white q-my-md">
-      Note: Only admin can access user page.
+      Note: Only admin can access user page. <b>(权限路由)</b>
     </q-banner>
 
   <q-table
@@ -64,7 +64,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref , onMounted} from 'vue';
 
 import {fetchUserApi, setUserRoleApi } from 'src/api/user'
 
@@ -125,6 +125,10 @@ const toggleEditSave = async () => {
   })
   toggleFetch()
 }
+
+onMounted(()=>{
+  toggleFetch()
+})
 
 </script>
 
