@@ -9,6 +9,9 @@
 - [x] 根据时间范围查询
 - [x] 用户权限控制
 
+**录屏演示：** 
+[video](https://www.bilibili.com/video/BV1Yt42137XY)
+
 
 **如何启动**  
 后端是普通的SpringBoot工程。
@@ -30,9 +33,12 @@ quasar dev
 3. spring data jpg
 4. mybatis
 5. lombok
+![image](https://github.com/yongruifang/login_system/assets/79357382/bf8bfec3-ddc0-458e-85e7-dcf6f467a46c)
+
 
 - **前端**
 1. quasar
 2. pinia
 3. axios
+![image](https://github.com/yongruifang/login_system/assets/79357382/23e3f584-a405-4cf0-bbf1-3d510975a7a1)
 
